@@ -48,16 +48,21 @@ public class SaveRep extends HttpServlet {
 			int idEpreuve = Integer.valueOf(req.getParameter("idEpreuve"));
 
 			List<QuestionTirage> lesTirages = questionManager.selectByIdEpreuve(idEpreuve);
-			rep = propositionManager.selectByIdRep(idProp, idEpreuve);
 			
-			if(rep == null)
-			{
-				propositionManager.insertRepTirage(idEpreuve, idProp);
-			}
-			else
-			{
-				propositionManager.deleteTirage(idProp, idEpreuve);
-			}
+			for (QuestionTirage questionTirage : lesTirages) {
+
+				
+				rep = propositionManager.selectByIdRep(idProp, idEpreuve);
+				
+				if(rep == null)
+				{
+					propositionManager.insertRepTirage(idEpreuve, idProp);
+				}
+				else
+				{
+					propositionManager.deleteTirage(idProp, idEpreuve);
+				}
+			}		
 			
 			req.getRequestDispatcher(LISTE).forward(req, resp);
 		}

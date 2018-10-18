@@ -21,29 +21,31 @@
 			  </div>
 			</div>
 			<br><br>
+			<div class="LsiteQuestion">
 			<div class="container">
 			  <div class="row">
 				<c:forEach items="${liste}" var="question" varStatus="status">
-		    		<div class="col-sm-4">
-						<c:if test="${status.index >= 0 && status.index <= 6}">
+					<c:if test="${status.index >= 0 && status.index <= 7}">
+			    		<div class="col-sm-4">
+							<input type="hidden" value="${question.idQuestion}" name="idTest">
+							<p class="list-group-item list-group-item-action list-group-item-warning"><a href="AffichageQuestion?idQuestion=${question.idQuestion}&idEpreuve=${epreuve.idEpreuve}">${question.enonce}</a></p>
+		  				</div>	
+	  				</c:if>	
+	  				<c:if test="${status.index > 7 && status.index <= 14}">
+		    			<div class="col-sm-4">
+							<input type="hidden" value="${question.idQuestion}" name="idTest">
+							<p class="list-group-item list-group-item-action list-group-item-success"><a href="AffichageQuestion?idQuestion=${question.idQuestion}&idEpreuve=${epreuve.idEpreuve}">${question.enonce}</a></p>
+	  					</div>	
+	  				</c:if>
+	  				<c:if test="${status.index > 14}">
+			    		<div class="col-sm-4">
 							<input type="hidden" value="${question.idQuestion}" name="idTest">
 							<p class="list-group-item list-group-item-action"><a href="AffichageQuestion?idQuestion=${question.idQuestion}&idEpreuve=${epreuve.idEpreuve}">${question.enonce}</a></p>
-			  			</c:if>	
-	  				</div>	
-		    		<div class="col-sm-4">
-						<c:if test="${status.index > 7 && status.index <= 13}">
-							<input type="hidden" value="${question.idQuestion}" name="idTest">
-							<p	 class="list-group-item list-group-item-action"><a href="AffichageQuestion?idQuestion=${question.idQuestion}&idEpreuve=${epreuve.idEpreuve}">${question.enonce}</a></p>
-		  				</c:if>
-	  				</div>	
-		    		<div class="col-sm-4">
-						<c:if test="${status.index > 13}">
-							<input type="hidden" value="${question.idQuestion}" name="idTest">
-							<p class="list-group-item list-group-item-action"><a href="AffichageQuestion?idQuestion=${question.idQuestion}&idEpreuve=${epreuve.idEpreuve}">${question.enonce}</a></p>
-		  				</c:if>
-	  				</div>	
+		  				</div>	
+	  				</c:if>
 				</c:forEach>	
 			  </div>
+			</div>
 			</div>
 			
 			<!-- <div class="row">

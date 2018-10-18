@@ -15,5 +15,7 @@ public interface PropositionManager {
 	
 	void insertRepTirage(int idEpreuve, int idProp) throws ManagerException;
 
-	ReponseTirage selectByIdRep(int idProp) throws ManagerException;
+	ReponseTirage selectByIdRep(int idProp, int idEpreuve) throws ManagerException;
+	
+	void deleteTirage(int idProp, int idEpreuve) throws ManagerException;
 }

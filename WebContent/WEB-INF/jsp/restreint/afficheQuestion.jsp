@@ -19,7 +19,7 @@
 			<c:forEach items="${listeProp}" var="prop">
 				<input type="hidden" value="${prop.idProposition}" name="idProp">
 				<div class="form-check">
-				  <input class="form-check-input" type="checkbox" id="blankCheckbox" value="option1" aria-label="...">
+				  <input class="form-check-input" type="checkbox" id="${prop.idProposition}" value="option1">
 				  <label class="form-check-label" for="defaultCheck1">
 				    ${prop.enonce}
 				  </label>
@@ -46,6 +46,9 @@
 				    	</c:if>	
 		    		</c:forEach>
 		    	</div>
+			    <div class="col">
+	    			<a class="btn btn-primary" href="SaveRep">Suivant</a>
+			    </div>
 			    <div class="col">
 			      <button type="button" class="btn btn-danger">Finir test</button>
 			    </div>

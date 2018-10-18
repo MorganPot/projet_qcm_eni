@@ -69,16 +69,26 @@ public class PropositionManagerImpl implements PropositionManager   {
 	}
 
 	@Override
-	public ReponseTirage selectByIdRep(int idProp) throws ManagerException {
+	public ReponseTirage selectByIdRep(int idProp, int idEpreuve) throws ManagerException {
 		
 		ReponseTirage rep = new ReponseTirage();
 		
 		try {
-			rep = propositionDAO.selectByIdRep(idProp);
+			rep = propositionDAO.selectByIdRep(idProp, idEpreuve);
 		} catch (DaoException e) {
 			throw new ManagerException("Erreur DAO", e);
 		}
 	
 		return rep;
+	}
+
+	@Override
+	public void deleteTirage(int idProp, int idEpreuve) throws ManagerException {
+		
+		try {
+			propositionDAO.deleteTirage(idProp, idEpreuve);
+		} catch (DaoException e) {
+			throw new ManagerException("Erreur DAO", e);
+		}
 	}
 }

@@ -20,7 +20,8 @@ import fr.eni.tp.web.common.util.ResourceUtil;
 public class PropositionDAOImpl implements PropositionDAO {
 	
 	private final String INSERT_REPONSE_TIRAGE_QUERY = "INSERT INTO REPONSE_TIRAGE(idEpreuve, idProposition) VALUES(?, ?)";
-	private final String SELECT_REPONSE_BY_ID = "SELECT idEpreuve, idProposition FROM REPONSE_TIRAGE WHERE idProposition = ?";
+	private final String DELETE_REPONSE_TIRAGE_QUERY = "DELETE FROM REPONSE_TIRAGE WHERE idProposition = ? AND idEpreuve = ?";
+	private final String SELECT_REPONSE_BY_ID = "SELECT idEpreuve, idProposition FROM REPONSE_TIRAGE WHERE idProposition = ? AND idEpreuve = ?";
 	  
     private static PropositionDAOImpl instance;
     
@@ -135,7 +136,7 @@ public class PropositionDAOImpl implements PropositionDAO {
 	}
 
 	@Override
-	public ReponseTirage selectByIdRep(int idProp) throws DaoException {
+	public ReponseTirage selectByIdRep(int idProp, int idEpreuve) throws DaoException {
 		
 		Connection connexion = null;
 		PreparedStatement statement = null;
@@ -147,6 +148,7 @@ public class PropositionDAOImpl implements PropositionDAO {
 			
 			statement = connexion.prepareStatement(SELECT_REPONSE_BY_ID);
 			statement.setInt(1, idProp);
+			statement.setInt(2, idEpreuve);
 
 			resultSet = statement.executeQuery();
 			
@@ -164,6 +166,29 @@ public class PropositionDAOImpl implements PropositionDAO {
 		}
 		
 		return rep;
+	}
+	
+	@Override
+	public void deleteTirage(Integer idProp, Integer idEpreuve) throws DaoException {
+       
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = MSSQLConnectionFactory.get();
+            
+            statement = connection.prepareStatement(DELETE_REPONSE_TIRAGE_QUERY);
+            
+            statement.setInt(1, idProp);
+            statement.setInt(2, idEpreuve);
+            
+            statement.executeUpdate();
+
+        } catch(SQLException e) {
+            throw new DaoException(e.getMessage(), e);
+        } finally {
+            ResourceUtil.safeClose(resultSet, statement, connection);
+        }
 	}
 	
 	@Override

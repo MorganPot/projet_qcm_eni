@@ -16,6 +16,7 @@ import fr.eni.tp.qcm.bll.manager.QuestionManager;
 import fr.eni.tp.qcm.bll.manager.ThemeManager;
 import fr.eni.tp.qcm.bo.Epreuve;
 import fr.eni.tp.qcm.bo.Question;
+import fr.eni.tp.qcm.bo.QuestionTirage;
 import fr.eni.tp.qcm.bo.ReponseTirage;
 import fr.eni.tp.qcm.bo.Theme;
 
@@ -27,6 +28,7 @@ public class SaveRep extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PropositionManager propositionManager = ManagerFactory.propositionManager();
 	private ReponseTirage rep = new ReponseTirage();
+	private QuestionManager questionManager = ManagerFactory.questionManager();
 	public static final String LISTE  = "/WEB-INF/jsp/restreint/afficheQuestion.jsp";
        
     /**
@@ -44,13 +46,17 @@ public class SaveRep extends HttpServlet {
 		try {
 			int idProp = Integer.valueOf(req.getParameter("idProp"));
 			int idEpreuve = Integer.valueOf(req.getParameter("idEpreuve"));
-			
-			rep = propositionManager.selectByIdRep(idProp);
+
+			List<QuestionTirage> lesTirages = questionManager.selectByIdEpreuve(idEpreuve);
+			rep = propositionManager.selectByIdRep(idProp, idEpreuve);
 			
 			if(rep == null)
 			{
 				propositionManager.insertRepTirage(idEpreuve, idProp);
-				req.setAttribute("repExiste", false);
+			}
+			else
+			{
+				propositionManager.deleteTirage(idProp, idEpreuve);
 			}
 			
 			req.getRequestDispatcher(LISTE).forward(req, resp);

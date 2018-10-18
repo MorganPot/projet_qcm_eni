@@ -17,6 +17,8 @@ public interface PropositionDAO extends GenericDAO<Proposition, Integer> {
 
 	void insertRepTirage(int idEpreuve, int idProp) throws DaoException;
 
-	ReponseTirage selectByIdRep(int idProp) throws DaoException;
+	ReponseTirage selectByIdRep(int idProp, int idEpreuve) throws DaoException;
+
+	void deleteTirage(Integer idProp, Integer idEpreuve) throws DaoException;
 
 }

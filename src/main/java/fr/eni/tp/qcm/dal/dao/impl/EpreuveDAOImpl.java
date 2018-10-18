@@ -1,7 +1,6 @@
 package fr.eni.tp.qcm.dal.dao.impl;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +15,6 @@ import fr.eni.tp.web.common.util.ResourceUtil;
 
 public class EpreuveDAOImpl implements EpreuveDAO {
 
-    private static final String SELECT_ALL_EPREUVE_QUERY = "SELECT n.id as note_id, n.nom as note_nom, n.created_at as note_created_at, n.content as note_content FROM EPREUVE E ORDER BY n.created_at DESC";
     private final String INSERT_EPREUVE_QUERY = "INSERT INTO EPREUVE(idUtilisateur, idTest, dateDebutValidite, dateFinValidite, etat) VALUES(?, ?, ?, ?, ?)";
     
     private static EpreuveDAOImpl instance;
